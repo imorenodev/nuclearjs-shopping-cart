@@ -14,7 +14,7 @@ export default React.createClass({
     }
   },
   onCheckoutClicked: function() {
-    // to be implemented
+    actions.cartCheckout();
   },
   render() {
     return (

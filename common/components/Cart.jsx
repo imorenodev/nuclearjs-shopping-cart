@@ -27,7 +27,7 @@ var Cart = React.createClass({
       var nodes = !hasProducts ?
         <div>Please add some products to cart.</div> :
         products.map(function (p) {
-            return <Product key={p.id}>{p.title} - &euro;{p.price} x {p.quantity}</Product>;
+            return <Product key={p.id}>{p.title} - &dollar;{p.price} x {p.quantity}</Product>;
           });
 
       return (

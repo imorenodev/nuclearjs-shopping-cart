@@ -1,5 +1,15 @@
 import { Store, toImmutable } from 'nuclear-js';
-import { ADD_TO_CART } from '../actionTypes.js';
+import { ADD_TO_CART,
+         CHECKOUT_START,
+         CHECKOUT_SUCCESS,
+         CHECKOUT_FAILED
+       } from '../actionTypes.js';
+
+const initialState = toImmutable({
+  itemQty: {},
+  pendingCheckout: {}
+});
+
 
 /**
  * CartStores holds the mapping of productId => quantity within itemQty
@@ -8,16 +18,19 @@ import { ADD_TO_CART } from '../actionTypes.js';
 
 export default Store({
   getInitialState() {
-    return toImmutable({ itemQty: {} })
+    return initialState;
   },
 
   initialize() {
     this.on(ADD_TO_CART, addToCart);
+    this.on(CHECKOUT_FAILED, rollback);
+    this.on(CHECKOUT_START, beginCheckout);
+    this.on(CHECKOUT_SUCCESS, finishCheckout);
   }
 });
 
 /**
- * Increments the quantity for an existing item by 1, 
+ * Increments the quantity for an existing item by 1,
  * or sets the quantity for a new item to 1.
  */
 
@@ -28,3 +41,25 @@ function addToCart(state, { product }) {
     : state.setIn(['itemQty', id], 1);
 }
 
+function beginCheckout(state) {
+  // snapshot the current itemQty map for a potential rollback
+  const currentItems = state.get('itemQty');
+
+  return state
+    .set('itemQty', toImmutable({}))
+    .set('pendingCheckout', currentItems);
+}
+
+function finishCheckout(state) {
+  // on success revert CartStore to its initial state
+  // discarding now unneeded rollback state
+  return initialState;
+}
+
+function rollback(state) {
+  // in the case of rollback restore the cart
+  // contents and discard rollback information
+  return state
+    .set('itemQty', state.get('pendingCheckout'))
+    .set('pendingCheckout', toImmutable({}));
+}

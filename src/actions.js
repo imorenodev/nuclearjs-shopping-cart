@@ -1,11 +1,12 @@
 import shop from '../common/api/shop';
-import reactor from './reactor.js';
+import reactor from './reactor';
+import getters from './getters';
 import { RECEIVE_PRODUCTS,
          ADD_TO_CART,
          CHECKOUT_START,
          CHECKOUT_SUCCESS,
          CHECKOUT_FAILED
-       } from './actionTypes.js';
+       } from './actionTypes';
 
 export default {
   fetchProducts() {
@@ -16,5 +17,16 @@ export default {
 
   addToCart(product) {
     reactor.dispatch(ADD_TO_CART, { product })
+  },
+
+  cartCheckout() {
+    let productsInCart = reactor.evaluateToJS(getters.cartProducts);
+
+    reactor.dispatch(CHECKOUT_START);
+
+    shop.buyProducts(productsInCart, () => {
+      console.log('YOU BOUGHT: ', productsInCart);
+      reactor.dispatch(CHECKOUT_SUCCESS);
+    });
   }
 }
