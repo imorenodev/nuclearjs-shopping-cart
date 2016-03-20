@@ -13,7 +13,7 @@ process.env.BABEL_ENV = TARGET;
 
 const common = {
   entry: {
-    app: PATHS.app
+    app: PATHS.app,
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
@@ -27,14 +27,12 @@ const common = {
       {
         test: /\.jsx?$/,
         loaders: ['eslint'],
-        include: PATHS.app
       }
     ],
     loaders: [
       {
         test: /\.css$/,
         loaders: ['style', 'css'],
-        include: PATHS.app
       },
       {
         test: /\.json/,
@@ -47,7 +45,6 @@ const common = {
           cacheDirectory: true,
           presets: ['react', 'es2015', 'survivejs-kanban']
         },
-        include: PATHS.app
       }
     ]
   }

@@ -15,7 +15,7 @@ var ProductItem = React.createClass({
 
   render: function () {
       var product = this.props.product;
-  
+
       return (
             <div className="uk-panel uk-panel-box uk-margin-bottom">
               <img className="uk-thumbnail uk-thumbnail-mini uk-align-left" src={product.image} />

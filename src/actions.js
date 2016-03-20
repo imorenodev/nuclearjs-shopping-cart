@@ -1,4 +1,4 @@
-import shop from '../../common/api/shop';
+import shop from '../common/api/shop';
 import reactor from './reactor.js';
 import { RECEIVE_PRODUCTS,
          ADD_TO_CART,

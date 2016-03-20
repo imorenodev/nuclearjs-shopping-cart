@@ -1,7 +1,7 @@
-import keyMirror from 'react/lib/keyMirror';
+import keyMirror from 'keymirror';
 
 export default keyMirror({
-  RECEIVE_PRODUCTS: null;
+  RECEIVE_PRODUCTS: null,
   ADD_TO_CART: null,
   CHECKOUT_START: null,
   CHECKOUT_SUCCESS: null,

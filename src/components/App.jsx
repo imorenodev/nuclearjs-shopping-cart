@@ -1,9 +1,14 @@
 import React from 'react';
+import CartContainer from './CartContainer';
+import ProductsContainer from './ProductsContainer';
 
-export default class App extends React.Component {
+export default React.createClass({
   render() {
     return (
-      <div>Hello World!</div>
-    )
+      <div> 
+        <ProductsContainer />
+        <CartContainer />
+      </div>
+    );
   }
-}
+});

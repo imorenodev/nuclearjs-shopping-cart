@@ -14,7 +14,7 @@ var Cart = React.createClass({
             id: React.PropTypes.number.isRequired,
             title: React.PropTypes.string.isRequired,
             price: React.PropTypes.number.isRequired,
-            quantity: React.PropTypes.number.isRequired,
+            quantity: React.PropTypes.number.isRequired
           })).isRequired,
       total: React.PropTypes.string.isRequired,
       onCheckoutClicked: React.PropTypes.func.isRequired
@@ -22,14 +22,14 @@ var Cart = React.createClass({
 
   render: function () {
       var products = this.props.products;
-  
+
       var hasProducts = products.length > 0;
       var nodes = !hasProducts ?
         <div>Please add some products to cart.</div> :
         products.map(function (p) {
             return <Product key={p.id}>{p.title} - &euro;{p.price} x {p.quantity}</Product>;
           });
-  
+
       return (
             <div className="cart uk-panel uk-panel-box uk-panel-box-primary">
               <div className="uk-badge uk-margin-bottom">Your Cart</div>
@@ -42,7 +42,7 @@ var Cart = React.createClass({
               </button>
             </div>
           );
-    },
+    }
 });
 
 module.exports = Cart;
